@@ -2,26 +2,26 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
     labels:
-        app: teama-microservice
+        app: polite-video-microservice
         stack: frontend
         source: demo
-    name: teama-microservice
+    name: polite-video-microservice
     namespace: microservices
 spec:
     replicas: 3
     selector:
         matchLabels:
-            run: teama-microservice
+            run: polite-video-microservice
     template:
         metadata:
             labels:
-                app: teama-microservice
-                run: teama-microservice
+                app: polite-video-microservice
+                run: polite-video-microservice
                 source: demo
         spec:
             containers:
-                -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/teama-microservice
-                    name: teama-microservice
+                -   image: 219099013464.dkr.ecr.us-west-2.amazonaws.com/polite-video-microservice
+                    name: polite-video-microservice
                     ports:
                         -   name: web
                             containerPort: 8080
@@ -31,13 +31,13 @@ kind: Service
 apiVersion: v1
 metadata:
     labels:
-        app: teama-microservice-service
-    name: teama-microservice-service
+        app: polite-video-microservice-service
+    name: polite-video-microservice-service
     namespace: microservices
 spec:
     selector:
         source: demo
-        app: teama-microservice
+        app: polite-video-microservice
     ports:
         -   name: web
             protocol: TCP
@@ -51,15 +51,15 @@ kind: Ingress
 metadata:
     annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /$2
-    name: teama-ingress
+    name: polite-video-ingress
     namespace: microservices
 spec:
     rules:
         -   http:
                 paths:
-                    -   path: /teama(/|$)(.*)
+                    -   path: /polite-video(/|$)(.*)
                         backend:
-                            serviceName: teama-microservice-service
+                            serviceName: polite-video-microservice-service
                             servicePort: 30201
 
 
